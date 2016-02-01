@@ -1,0 +1,24 @@
+﻿@using ImagineCup2016.Models
+@model Register
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Register</h2>
+
+<div>
+    @using (@Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        <label>Enter User Name </label>
+        @Html.TextBoxFor(m => m.UserName, new { @Class = "form-control" });
+        <label>Enter Password</label>
+        @Html.PasswordFor(m => m.Password, new { @Class = "form-control" });
+        <br />
+        <button class="btn btn-primary">Create</button>
+    }
+
+</div>
+
