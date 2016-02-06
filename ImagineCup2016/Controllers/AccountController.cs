@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using ImagineCup2016.Models;
 using WebMatrix.WebData;
+using System.Web.Security;
+
 namespace ImagineCup2016.Controllers
 
 {
@@ -41,14 +43,15 @@ namespace ImagineCup2016.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(Register regdata)
+        public ActionResult Register(Register regdata,String role)
         {
-            try
-            {
+           try
+           {
                 WebSecurity.CreateUserAndAccount(regdata.UserName, regdata.Password);
+                Roles.AddUserToRole(regdata.UserName,role);
                 return RedirectToAction("Index", "Home");
             }
-            catch (Exception ex)
+            catch (System.Web.Security.MembershipCreateUserException ex)
             {
                 ModelState.AddModelError("", "Username alredy exists");
                 return View(regdata);

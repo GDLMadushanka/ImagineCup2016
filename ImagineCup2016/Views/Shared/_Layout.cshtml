@@ -26,9 +26,12 @@
                     @{
                         if (User.Identity.IsAuthenticated)
                         {
-                            <li>@User.Identity.Name</li>
+                            <li><strong style="color:white">@User.Identity.Name</strong></li>
                             <li>@Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, null)</li>
-                            
+                            if (Roles.GetRolesForUser().Length > 0)
+                            {
+                                <li><strong style="color:white">@Roles.GetRolesForUser()[0]</strong></li>
+                            }
                         }
                         else
                         {

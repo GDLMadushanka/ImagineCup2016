@@ -3,6 +3,25 @@
 @{
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SelectListItem> roles = new List<SelectListItem>()
+    {
+        new SelectListItem()
+        {
+            Text = "Adminstrator",Value="Adminstrator"
+        },
+        new SelectListItem()
+        {
+            Text = "StationAdmin",Value="StationAdmin"
+        },
+         new SelectListItem()
+        {
+            Text = "Producer",Value="Producer"
+        },
+          new SelectListItem()
+        {
+            Text = "Announcer",Value="Announcer"
+        }
+    };
 }
 
 <h2>Register</h2>
@@ -17,6 +36,7 @@
         <label>Enter Password</label>
         @Html.PasswordFor(m => m.Password, new { @Class = "form-control" });
         <br />
+        @Html.DropDownList("role",roles,"Select a Role")
         <button class="btn btn-primary">Create</button>
     }
 
