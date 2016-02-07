@@ -207,6 +207,9 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProgramController.cs" />
+    <Compile Include="Controllers\stationsController.cs" />
+    <Compile Include="Controllers\TempUserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DatabaseEntity.Context.cs">
       <AutoGen>True</AutoGen>
@@ -226,12 +229,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataAccess.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Programme.cs" />
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\Station.cs" />
+    <Compile Include="Models\TempUser.cs" />
+    <Compile Include="Programme.cs">
+      <DependentUpon>DatabaseEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="station.cs">
+      <DependentUpon>DatabaseEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StationUser.cs">
+      <DependentUpon>DatabaseEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TempUser.cs">
       <DependentUpon>DatabaseEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="UserProfile.cs">
@@ -325,6 +338,14 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\stations\Create.cshtml" />
+    <Content Include="Views\stations\Delete.cshtml" />
+    <Content Include="Views\stations\Details.cshtml" />
+    <Content Include="Views\stations\Edit.cshtml" />
+    <Content Include="Views\stations\Index.cshtml" />
+    <Content Include="Views\Program\Create.cshtml" />
+    <Content Include="Views\TempUser\Create.cshtml" />
+    <Content Include="Views\TempUser\Validate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

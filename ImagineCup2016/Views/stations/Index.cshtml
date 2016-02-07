@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ImagineCup2016.station>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+
+
+
+        <div class="row" style="background-color: aqua;">
+            <!--Sidebar content-->
+            
+            <p style="background-color:dodgerblue; color:white"><strong> > Programmes</strong></p>
+            <br />
+            <div class="row">
+                <div class="col-md-1" style="background-color: aqua;"></div>
+                <div class="col-md-10" style="background-color: aqua;">
+                    @{
+                        Programme[] proarr = (Programme[])ViewBag.programmes;
+                        foreach (Programme item in proarr)
+                        {
+                            <a href="#" class="btn btn-info">@item.name</a>
+                        }
+                    }
+                </div>
+                <div class="col-md-1" style="background-color: aqua;"></div>
+            </div>
+            <br />
+                <a href="/Program/Create" class="btn btn-default">Add New</a>
+            </div>
+        <br />
+        <div class="row" style="background-color: aqua;">
+            <!--Sidebar content-->
+            <p style="background-color:dodgerblue; color:white"><strong> > Producers</strong></p>
+            <a href="#" class="btn btn-info">Add New</a>
+        </div>
+        <br />
+        <div class="row" style="background-color: aqua;">
+            <!--Sidebar content-->
+            <p style="background-color:dodgerblue; color:white"><strong> > Announcers</strong></p>
+            <a href="#" class="btn btn-info">Add New</a>
+        </div>
+       
+         
+
+      
+    </div>
+</div>
+
+
+
+
+
+
+

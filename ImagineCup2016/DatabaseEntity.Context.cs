@@ -30,5 +30,8 @@ namespace ImagineCup2016
         public virtual DbSet<webpages_Membership> webpages_Membership { get; set; }
         public virtual DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
         public virtual DbSet<webpages_Roles> webpages_Roles { get; set; }
+        public virtual DbSet<StationUser> StationUsers { get; set; }
+        public virtual DbSet<Programme> Programmes { get; set; }
+        public virtual DbSet<TempUser> TempUsers { get; set; }
     }
 }

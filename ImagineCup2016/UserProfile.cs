@@ -18,6 +18,7 @@ namespace ImagineCup2016
         public UserProfile()
         {
             this.webpages_Roles = new HashSet<webpages_Roles>();
+            this.StationUsers = new HashSet<StationUser>();
         }
     
         public int UserId { get; set; }
@@ -25,5 +26,7 @@ namespace ImagineCup2016
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StationUser> StationUsers { get; set; }
     }
 }

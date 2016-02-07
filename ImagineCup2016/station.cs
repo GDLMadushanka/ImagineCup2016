@@ -14,10 +14,25 @@ namespace ImagineCup2016
     
     public partial class station
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public station()
+        {
+            this.StationUsers = new HashSet<StationUser>();
+            this.Programmes = new HashSet<Programme>();
+            this.TempUsers = new HashSet<TempUser>();
+        }
+    
         public int id { get; set; }
         public string name { get; set; }
         public string frequency { get; set; }
         public byte[] logo { get; set; }
         public Nullable<bool> approved { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StationUser> StationUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Programme> Programmes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TempUser> TempUsers { get; set; }
     }
 }

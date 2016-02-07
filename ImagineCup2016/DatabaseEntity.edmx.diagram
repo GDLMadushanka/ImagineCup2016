@@ -11,6 +11,13 @@
         <EntityTypeShape EntityType="ImagineCupModel.webpages_OAuthMembership" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ImagineCupModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="ImagineCupModel.webpages_UsersInRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ImagineCupModel.StationUser" Width="1.5" PointX="5.25" PointY="0.75" />
+        <AssociationConnector Association="ImagineCupModel.FK__StationUs__Stati__25869641" />
+        <AssociationConnector Association="ImagineCupModel.FK__StationUs__UserI__24927208" />
+        <EntityTypeShape EntityType="ImagineCupModel.Programme" Width="1.5" PointX="0.75" PointY="7.625" />
+        <AssociationConnector Association="ImagineCupModel.FK__Programme__stati__2A4B4B5E" />
+        <EntityTypeShape EntityType="ImagineCupModel.TempUser" Width="1.5" PointX="3" PointY="7.875" />
+        <AssociationConnector Association="ImagineCupModel.FK__TempUser__statio__2F10007B" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
