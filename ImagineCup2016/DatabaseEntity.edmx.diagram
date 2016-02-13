@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="13110a31bbb54310805b399944dc3c5c" Name="Diagram1">
+        <EntityTypeShape EntityType="ImagineCupModel.station" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ImagineCupModel.UserProfile" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ImagineCupModel.webpages_Membership" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ImagineCupModel.webpages_OAuthMembership" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ImagineCupModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="ImagineCupModel.webpages_UsersInRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ImagineCupModel.StationUser" Width="1.5" PointX="5.25" PointY="0.75" />
+        <AssociationConnector Association="ImagineCupModel.FK__StationUs__Stati__25869641" />
+        <AssociationConnector Association="ImagineCupModel.FK__StationUs__UserI__24927208" />
+        <EntityTypeShape EntityType="ImagineCupModel.Programme" Width="1.5" PointX="0.75" PointY="7.625" />
+        <AssociationConnector Association="ImagineCupModel.FK__Programme__stati__2A4B4B5E" />
+        <EntityTypeShape EntityType="ImagineCupModel.TempUser" Width="1.5" PointX="3" PointY="7.875" />
+        <AssociationConnector Association="ImagineCupModel.FK__TempUser__statio__2F10007B" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

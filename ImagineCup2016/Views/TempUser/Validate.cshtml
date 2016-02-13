@@ -1,0 +1,45 @@
+﻿@using ImagineCup2016.Models
+@model ImagineCup2016.Models.TempUser
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="well bs-component">
+            <form class="form-horizontal" id="form123"
+                  action="@Url.Action("Validate2", "TempUser")" method="POST" name="registerForm" enctype="multipart/form-data" onsubmit="return validateMyForm();">
+                <fieldset>
+                    <legend>Alter details if needed</legend>
+
+                    <div class="form-group">
+                        <label for="inputName" class="col-lg-2 control-label">Name</label>
+                        <div class="col-lg-10">
+                            @Html.TextBoxFor(m => m.Name, new { @Class = "form-control", @value = ViewBag.temp.Name })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputAddress" class="col-lg-2 control-label">Password</label>
+                        <div class="col-lg-10">
+                            @Html.TextBoxFor(m => m.Password, new { @Class = "form-control", @value = ViewBag.temp.Password })
+                        </div>
+                    </div>
+                    @{ Model.Role = ViewBag.temp.Role;Model.stationId = ViewBag.temp.stationId; }
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <button class="btn btn-primary" id="subbutton" type="submit">Create</button>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

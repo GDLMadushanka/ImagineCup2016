@@ -16,12 +16,40 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("NextRadio", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    @{ if (Session["Logo"] != null)
+                        {
+                            <li> <img id="pictureSample" width="50" height="50" src="@String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String((byte[])Session["Logo"]))" /></li>
+                        }
+                    }
+                   
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+
+                            <li><strong style="color:white">@User.Identity.Name</strong></li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, null)</li>
+                            if (Roles.GetRolesForUser().Length > 0)
+                            {
+                                <li><strong style="color:white">@Roles.GetRolesForUser()[0]</strong></li>
+                            }
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Action("Login", "Account")">Login</a></li>
+                           
+                            <li>@Html.ActionLink("Register", "Register", "Account", new { area = "" }, null)</li>
+                        }
+                    }
+
+
                 </ul>
             </div>
         </div>

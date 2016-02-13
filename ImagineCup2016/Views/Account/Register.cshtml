@@ -1,0 +1,38 @@
+﻿@using ImagineCup2016.Models
+@model Register
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Register</h2>
+
+<div>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+
+        <fieldset>
+            <legend>Station Details</legend>
+            <label>Station Name</label>
+            @Html.TextBoxFor(m => m.RadioStation.Name, new { @Class = "form-control" })
+            <label>Broadcast Frequency</label>
+            @Html.TextBoxFor(m => m.RadioStation.Frequency, new { @Class = "form-control" })
+            <label>Logo (n x n)</label>
+            @Html.TextBoxFor(x => x.RadioStation.Logo, new { type = "file" })
+        </fieldset>
+        <fieldset>
+            <legend>Administrator Details</legend>
+            <label>Enter User Name </label>
+            @Html.TextBoxFor(m => m.UserName, new { @Class = "form-control" })
+            <label>Enter Password</label>
+            @Html.PasswordFor(m => m.Password, new { @Class = "form-control" })
+            <br />
+        </fieldset>
+        <button class="btn btn-primary">Create Account</button>
+    }
+
+</div>
+
