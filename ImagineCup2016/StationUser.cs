@@ -15,8 +15,8 @@ namespace ImagineCup2016
     public partial class StationUser
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public int StationId { get; set; }
+        public Nullable<int> UserId { get; set; }
+        public Nullable<int> StationId { get; set; }
     
         public virtual station station { get; set; }
         public virtual UserProfile UserProfile { get; set; }

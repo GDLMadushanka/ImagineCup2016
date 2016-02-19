@@ -17,37 +17,34 @@ namespace ImagineCup2016.Controllers
     {
         private ImagineCupEntities db = new ImagineCupEntities();
         // GET: Account
-        [HttpGet]
-        public ActionResult Login()
-        {
-            return View();
-        }
+     
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(Login logindata,String returnUrl)
+        public ActionResult Login(String UserName,String Password,String returnUrl)
         {
-            TempUser temp = db.TempUsers.Where(c => c.name == logindata.UserName && c.password == logindata.Password).First();
+            TempUser temp = null;
+                //db.TempUsers.Where(c => c.name == logindata.UserName && c.password == logindata.Password).First();
 
-            if (temp==null && WebSecurity.Login(logindata.UserName, logindata.Password, true))
+            if (temp==null && WebSecurity.Login(UserName,Password, true))
             {
-                if (Roles.GetRolesForUser(logindata.UserName).Any())
+                if (Roles.GetRolesForUser(UserName).Any())
                 {
-                    if (!(Roles.GetRolesForUser(logindata.UserName)[0].Equals("Administrator") || Roles.GetRolesForUser(logindata.UserName)[0].Equals("PhoneUser")))
+                    if (!(Roles.GetRolesForUser(UserName)[0].Equals("Administrator") || Roles.GetRolesForUser(UserName)[0].Equals("PhoneUser")))
                     {
-                        int userid = db.UserProfiles.Where(m => m.UserName.Equals(logindata.UserName)).First().UserId;
-                        int stationId = db.StationUsers.Where(c => c.UserId == userid).First().StationId;
+                        int userid = db.UserProfiles.Where(m => m.UserName.Equals(UserName)).First().UserId;
+                        int stationId = db.StationUsers.Where(c => c.UserId == userid).First().StationId.Value;
                         byte[] logo = db.stations.Where(c => c.id == stationId).First().logo;
                         Session["Logo"] = logo;
                         Session["UserId"] = userid;
                         Session["StationId"] = stationId;
                         return RedirectToAction("Index", "stations");
                     }
+                    else return RedirectToAction("Index", "Home");
                 }
 
-                if (returnUrl != null)
-                {
-                    return RedirectToAction(returnUrl);
-                }
+                //if (returnUrl != null)
+                //{
+                //    return RedirectToAction(returnUrl);
+                //}
                 else
                     return RedirectToAction("Index", "Home");
             }
@@ -59,7 +56,7 @@ namespace ImagineCup2016.Controllers
             else
             {
                 ModelState.AddModelError("", "Sorry invalid username or password");
-                return View(logindata);
+                return View();
             }
         }
         [HttpGet]
@@ -141,5 +138,11 @@ namespace ImagineCup2016.Controllers
             WebSecurity.Logout();
             return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
+        public ActionResult LoinTest()
+        {
+            return PartialView("_PartialLogin");
+        }
+
     }
 }

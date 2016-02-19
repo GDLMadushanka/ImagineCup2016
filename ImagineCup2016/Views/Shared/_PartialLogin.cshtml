@@ -1,0 +1,48 @@
+﻿@using ImagineCup2016.Models
+@model Login
+
+
+
+<div>
+
+        <label>Enter User Name </label>
+        @Html.TextBoxFor(m => m.UserName, new { @Class = "form-control" , @id = "uname" } )
+        <label>Enter Password</label>
+        @Html.PasswordFor(m => m.Password, new { @Class = "form-control",@id = "pass" })
+        <br />
+        <button class="btn btn-primary" id="submit-button">Login</button>
+    
+
+</div>
+
+
+    <script type="text/javascript">
+
+        
+
+        $("#submit-button").click(function () {
+            console.log("hitan");
+            // On submit button click close dialog box
+          
+
+            //Set inserted vlaues
+            var name = document.getElementById("uname").value;
+            var pass = document.getElementById("pass").value;
+            console.log(name);
+            console.log(pass);
+
+            $("#createForm").dialog("close");
+            // Call Create action method
+            $.post('/Account/Login', { "UserName": name, "Password": pass, "returnUrl": "" },
+                function () {
+                    window.location.reload(true);
+                });
+
+            
+        });
+
+
+
+    </script>
+    
+    

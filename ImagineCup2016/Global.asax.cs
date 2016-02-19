@@ -19,7 +19,7 @@ namespace ImagineCup2016
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         
-                WebSecurity.InitializeDatabaseConnection("DefaultConnection",
+            WebSecurity.InitializeDatabaseConnection("DefaultConnection",
 "UserProfile", "UserId", "UserName", autoCreateTables: true);
         }
     }
