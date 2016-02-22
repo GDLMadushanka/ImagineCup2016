@@ -9,7 +9,9 @@ namespace ImagineCup2016
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.validate.js",
+                    "~/Scripts/jquery.validate.unobtrusive.js"));
 
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(

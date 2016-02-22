@@ -19,46 +19,46 @@ namespace ImagineCup2016.Controllers
         // GET: Account
      
         [HttpPost]
-        public ActionResult Login(String UserName,String Password,String returnUrl)
+        public JsonResult Login(Login logindata,String returnUrl)
         {
             TempUser temp = null;
                 //db.TempUsers.Where(c => c.name == logindata.UserName && c.password == logindata.Password).First();
 
-            if (temp==null && WebSecurity.Login(UserName,Password, true))
+            if (temp==null && WebSecurity.Login(logindata.UserName, logindata.Password, true))
             {
-                if (Roles.GetRolesForUser(UserName).Any())
-                {
-                    if (!(Roles.GetRolesForUser(UserName)[0].Equals("Administrator") || Roles.GetRolesForUser(UserName)[0].Equals("PhoneUser")))
+                
+                    if (Roles.GetRolesForUser(logindata.UserName).Any()&&(!(Roles.GetRolesForUser(logindata.UserName)[0].Equals("Administrator") || Roles.GetRolesForUser(logindata.UserName)[0].Equals("PhoneUser"))))
                     {
-                        int userid = db.UserProfiles.Where(m => m.UserName.Equals(UserName)).First().UserId;
+                        int userid = db.UserProfiles.Where(m => m.UserName.Equals(logindata.UserName)).First().UserId;
                         int stationId = db.StationUsers.Where(c => c.UserId == userid).First().StationId.Value;
                         byte[] logo = db.stations.Where(c => c.id == stationId).First().logo;
                         Session["Logo"] = logo;
                         Session["UserId"] = userid;
                         Session["StationId"] = stationId;
-                        return RedirectToAction("Index", "stations");
+                        return Json(new { status = "1", message = "success" }, JsonRequestBehavior.AllowGet);
                     }
-                    else return RedirectToAction("Index", "Home");
-                }
 
-                //if (returnUrl != null)
-                //{
-                //    return RedirectToAction(returnUrl);
-                //}
-                else
-                    return RedirectToAction("Index", "Home");
+                    else
+                    {
+                        Response.StatusCode = 400;
+                        return Json(new { message="User not assigned to a role"},JsonRequestBehavior.AllowGet);
+                    }
+                
             }
-            else if (temp != null)
-            {
-                TempUserController con = new TempUserController();
-                return RedirectToAction("Validate","TempUser",temp);
-            }
+            //else if (temp != null)
+            //{
+            //    TempUserController con = new TempUserController();
+            //    return Json(new { status = "-1", message = "error" }, JsonRequestBehavior.AllowGet);
+            //}
             else
             {
-                ModelState.AddModelError("", "Sorry invalid username or password");
-                return View();
+                ModelState.AddModelError("", "User name or password not correct");
+                Response.StatusCode = 400;
+                return Json(new { message = "User name password missmatch" }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
         [HttpGet]
         public ActionResult Register()
         {

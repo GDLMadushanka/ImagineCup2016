@@ -15,15 +15,18 @@ namespace ImagineCup2016.Controllers
         private ImagineCupEntities db = new ImagineCupEntities();
 
         // GET: stations
-        public ActionResult Index()
+        public ActionResult Index(station st)
         {
             int stationid = (int)Session["StationId"];
             Programme[] programes = db.Programmes.Where(c => c.stationId == stationid).ToArray();
             ViewBag.programmes = programes;
-            return View();
+            return View("Index");
         }
 
-
+        public ActionResult StationDashboard()
+        {
+            return View();
+        }
         // GET: stations/Edit/5
         public ActionResult Edit(int? id)
         {

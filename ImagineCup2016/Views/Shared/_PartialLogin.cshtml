@@ -2,45 +2,41 @@
 @model Login
 
 
+<div id="result">
 
-<div>
-
-        <label>Enter User Name </label>
-        @Html.TextBoxFor(m => m.UserName, new { @Class = "form-control" , @id = "uname" } )
-        <label>Enter Password</label>
-        @Html.PasswordFor(m => m.Password, new { @Class = "form-control",@id = "pass" })
-        <br />
-        <button class="btn btn-primary" id="submit-button">Login</button>
-    
-
+    @using (Ajax.BeginForm("Login", "Account", (new AjaxOptions { HttpMethod = "Post", OnSuccess = "redirect", OnFailure = "errors" })))
+    {
+        <fieldset>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            <label style="font-size:small">Enter User Name </label>
+            @Html.TextBoxFor(x => x.UserName, new { htmlAttributes = new { @class = "form-control" } })
+            <label style="font-size:small">Enter Password </label>
+            @Html.PasswordFor(x => x.Password, new { htmlAttributes = new { @class = "form-control" } })
+            <div>
+                <label id="errormessages" style="font-size:small;color:red"></label>
+            </div>
+        </fieldset>
+        <button class="btn btn-xs">Login</button>
+    }
 </div>
 
 
+
+
     <script type="text/javascript">
+        var errors = function (data) {
+            $("#errormessages").html(data.responseJSON.message);
+            console.log(data.responseJSON.message);
+        };
 
+        function redirect(data)
+        {
+            $("#errormessages").text = "Wait...";
+            console.log(data.message);
+            window.location.href = '/stations/StationDashboard/';
+        }
         
-
-        $("#submit-button").click(function () {
-            console.log("hitan");
-            // On submit button click close dialog box
-          
-
-            //Set inserted vlaues
-            var name = document.getElementById("uname").value;
-            var pass = document.getElementById("pass").value;
-            console.log(name);
-            console.log(pass);
-
-            $("#createForm").dialog("close");
-            // Call Create action method
-            $.post('/Account/Login', { "UserName": name, "Password": pass, "returnUrl": "" },
-                function () {
-                    window.location.reload(true);
-                });
-
-            
-        });
-
 
 
     </script>
