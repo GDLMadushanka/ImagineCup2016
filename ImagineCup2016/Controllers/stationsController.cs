@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ImagineCup2016;
+using ImagineCup2016.Models;
 
 namespace ImagineCup2016.Controllers
 {
@@ -25,7 +25,23 @@ namespace ImagineCup2016.Controllers
 
         public ActionResult StationDashboard()
         {
-            return View();
+
+            int stationID = int.Parse(Session["StationId"].ToString());
+            StationData data = new StationData();
+            data.Station = new station();
+            data.ProgramList = new List<Models.Programme>();
+            data.ProducerList = new List<Models.Producer>();
+            data.AnnouncerList = new List<Models.Announcer>();
+
+            station st = db.stations.Where(c => c.id == stationID).First();
+            data.Station = st;
+            List<Programme> plist =db.Programmes.Where(c => c.stationId == stationID).ToList();
+            foreach (var item in plist)
+            {
+                Models.Programme p = new Models.Programme {moto=item.moto,name=item.name,StationId=item.stationId.Value };
+                data.ProgramList.Add(p);
+            }
+            return View(data);
         }
         // GET: stations/Edit/5
         public ActionResult Edit(int? id)

@@ -31,8 +31,6 @@ namespace ImagineCup2016.Controllers
                     {
                         int userid = db.UserProfiles.Where(m => m.UserName.Equals(logindata.UserName)).First().UserId;
                         int stationId = db.StationUsers.Where(c => c.UserId == userid).First().StationId.Value;
-                        byte[] logo = db.stations.Where(c => c.id == stationId).First().logo;
-                        Session["Logo"] = logo;
                         Session["UserId"] = userid;
                         Session["StationId"] = stationId;
                         return Json(new { status = "1", message = "success" }, JsonRequestBehavior.AllowGet);

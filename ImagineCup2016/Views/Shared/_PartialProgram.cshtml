@@ -1,0 +1,42 @@
+﻿@using ImagineCup2016.Models
+@model ImagineCup2016.Models.Programme
+
+
+<div id="result">
+
+    @using (Ajax.BeginForm("Create", "Program", (new AjaxOptions { HttpMethod = "Post", OnSuccess = "redirect", OnFailure = "errors" })))
+    {
+        <fieldset>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            <label style="font-size:small">Enter Program Name </label>
+            @Html.TextBoxFor(x => x.name, new { htmlAttributes = new { @class = "form-control" } })
+            <label style="font-size:small">Enter moto </label>
+            @Html.TextBoxFor(x => x.moto, new { htmlAttributes = new { @class = "form-control" } })
+            <div>
+                <label id="errormsg" style="font-size:small;color:red"></label>
+            </div>
+        </fieldset>
+        <button id="subbmit" class="btn btn-xs">Create</button>
+    }
+</div>
+
+
+
+<script type="text/javascript">
+
+
+        var errors = function (data) {
+            $("#errormsg").html(data.responseJSON.message);
+        };
+
+        function redirect(data)
+        {
+            window.location.reload();
+        }
+
+
+
+</script>
+
+

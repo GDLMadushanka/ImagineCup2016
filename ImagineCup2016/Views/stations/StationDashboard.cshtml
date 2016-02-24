@@ -1,5 +1,5 @@
 ﻿@using ImagineCup2016.Models
-@model station
+@model StationData
 @{
     ViewBag.Title = "StationDashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,6 +12,9 @@
 <meta name="author" content="">
 
 <link href="~/Content/simple-sidebar.css" rel="stylesheet">
+<link href="~/Content/sb-admin.css" rel="stylesheet">
+<link href="~/Content/morris.css" rel="stylesheet">
+
 
 <div class="row" style="background-color:deepskyblue">
     <div class="col-lg-1">
@@ -23,11 +26,15 @@
 
        
       
-        @{ if (Session["Logo"] != null)
+        @{ if (Model.Station.logo!=null)
             {
-                <img id="pictureSample" width="50" height="50" src="@String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String((byte[])Session["Logo"]))" />
+                <img id="pictureSample" width="50" height="50" src="@String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String((byte[])Model.Station.logo))" />
             }
         }
+        <label style="color:white">@Model.Station.name</label>
+        <label> | </label>
+        <label style="color:white">@Model.Station.frequency MHz</label>
+        <label> | </label>
         <label style="color:white">@User.Identity.Name</label>
         <label> | </label>
         @{if (Roles.GetRolesForUser().Length > 0)
@@ -50,33 +57,151 @@
                 <a href="#">Time Table</a>
             </li>
             <li>
-                <a href="#">Programmes</a>
-            </li>
-            <li>
                 <a href="#">Producers</a>
             </li>
             <li>
                 <a href="#">Announcers</a>
             </li>
-            
+            <li>
+                <a href="#" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Programmes <i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="demo" class="collapse">
+                    @{foreach (var item in Model.ProgramList)
+                        {
+                            <li>
+                                <a href="#">@item.name</a>
+                            </li>
+                        }
+                    }
+
+                </ul>
+            </li>
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Simple Sidebar</h1>
-                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-                   
+
+            <!-- Dashboard page content --------------------------------------------------------------------->
+            <div class="row" id="Dashboard">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-comments fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">@Model.ProgramList.Count</div>
+                                    <div>Programmes</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">@Model.ProducerList.Count</div>
+                                    <div>Producers</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">@Model.AnnouncerList.Count</div>
+                                    <div>Announcers</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-support fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">13</div>
+                                    <div>Raitings</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
+
+            <div class="row" id="ProgramList" style="padding-left:30px">
+                <div class="row" style="background-color:deepskyblue">
+                  
+                        <button type="button" id="probutton" class="btn btn-default" aria-label="Left Align" style="background-color:deepskyblue;border:none">
+                            <span style="font-size:1.5em" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                        </button>
+                    <label style="color:white">Add New</label>
+                    </div>
+                <br />
+                <div class="col-md-11">
+                    @foreach (var item in Model.ProgramList)
+                    {
+                        <a href="#" class="btn btn-primary" style="padding:5px;padding-right:5px">@item.name</a>
+                    }
+                </div>
+            </div>
+            </div>
+
+        <div id="createPro" title="Login">
         </div>
+
+        </div><!-- /#page-content-wrapper -->
+
+
+
     </div>
-    <!-- /#page-content-wrapper -->
-</div>
+    
+
 <!-- /#wrapper -->
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
@@ -88,4 +213,74 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+
+    @*var stationid = @Session["StationId"];
+    var ul = document.getElementById("demo");
+    var items = [];
+    $.getJSON("@Url.Action("GetAllProgrammes", "Program", new { StationID = "_tenderId" })".replace("_tenderId", stationid), function (data) {
+        console.log(data);
+        data.forEach(function(entry) {
+
+            items.push(
+                      "<li><a>" + entry + "</a></li>"
+                      );
+
+        //    var li = document.createElement("li");
+        //    li.appendChild(<a>entry</a>);
+        //    console.log(entry);
+        ////    li.setAttribute("id", "element4"); // added line
+        //    ul.appendChild(li);
+        });
+        $("#demo").html(items.join(""));
+    });*@
+       
+
+    $(document).ready(function () {
+
+        try {
+
+            var dialog = $("#createPro").dialog({
+                modal: true,
+                autoOpen: false,
+                title: "Add new Program",
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                },
+                position: ({
+                    "my": "left top",
+                    "at": "right bottom",
+                    "of": $("#probutton")
+                }),
+                width: 230,
+                minHeight: 'auto'
+
+            });
+
+            $("#probutton").click(function () {
+                $.ajax({
+                    // Call CreatePartialView action method
+                    url: "/Program/NewProgramForm",
+                    type: 'Get',
+                    context: this,
+                    success: function (data) {
+
+                        dialog.html(data);
+                        dialog.dialog("open");
+                    },
+                    error: function () {
+                        alert("something seems wrong");
+                    }
+                });
+            });
+
+        }
+        catch (err) { console.log(err.message) }
+    });
+
+
 </script>

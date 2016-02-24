@@ -17,7 +17,7 @@
                 <label id="errormessages" style="font-size:small;color:red"></label>
             </div>
         </fieldset>
-        <button class="btn btn-xs">Login</button>
+        <button id="subbmit" class="btn btn-xs">Login</button>
     }
 </div>
 
@@ -25,9 +25,10 @@
 
 
     <script type="text/javascript">
+       
+
         var errors = function (data) {
             $("#errormessages").html(data.responseJSON.message);
-            console.log(data.responseJSON.message);
         };
 
         function redirect(data)

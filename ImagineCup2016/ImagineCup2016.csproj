@@ -173,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Program\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -231,10 +232,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Announcer.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Producer.cs" />
     <Compile Include="Models\Programme.cs" />
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\Station.cs" />
+    <Compile Include="Models\StationData.cs" />
     <Compile Include="Models\TempUser.cs" />
     <Compile Include="Programme.cs">
       <DependentUpon>DatabaseEntity.tt</DependentUpon>
@@ -266,6 +270,9 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\morris.css" />
+    <Content Include="Content\sb-admin.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -381,18 +388,17 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\stations\Create.cshtml" />
     <Content Include="Views\stations\Delete.cshtml" />
     <Content Include="Views\stations\Details.cshtml" />
     <Content Include="Views\stations\Edit.cshtml" />
     <Content Include="Views\stations\Index.cshtml" />
-    <Content Include="Views\Program\Create.cshtml" />
     <Content Include="Views\TempUser\Create.cshtml" />
     <Content Include="Views\TempUser\Validate.cshtml" />
     <Content Include="Views\Shared\_PartialLogin.cshtml" />
     <Content Include="Views\stations\StationDashboard.cshtml" />
+    <Content Include="Views\Shared\_PartialProgram.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
