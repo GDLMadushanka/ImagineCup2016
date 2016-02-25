@@ -26,7 +26,7 @@
 
        
       
-        @{ if (Model.Station.logo!=null)
+        @{ if (Model.Station.logo != null)
             {
                 <img id="pictureSample" width="50" height="50" src="@String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String((byte[])Model.Station.logo))" />
             }
@@ -49,7 +49,7 @@
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
-                <a href="#">
+                <a href="#" id="showdashboard">
                     Dashboard
                 </a>
             </li>
@@ -57,10 +57,30 @@
                 <a href="#">Time Table</a>
             </li>
             <li>
-                <a href="#">Producers</a>
+                <a href="#" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-arrows-v"></i> Producers <i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="demo2" class="collapse">
+                    @{foreach (var item in Model.ProducerList)
+                        {
+                            <li>
+                                <a href="#">@item.UserName</a>
+                            </li>
+                        }
+                    }
+
+                </ul>
             </li>
             <li>
-                <a href="#">Announcers</a>
+                <a href="#" data-toggle="collapse" data-target="#demo1"><i class="fa fa-fw fa-arrows-v"></i> Announcers <i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="demo1" class="collapse">
+                    @{foreach (var item in Model.AnnouncerList)
+                        {
+                            <li>
+                                <a href="#">@item.UserName</a>
+                            </li>
+                        }
+                    }
+
+                </ul>
             </li>
             <li>
                 <a href="#" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Programmes <i class="fa fa-fw fa-caret-down"></i></a>
@@ -75,6 +95,7 @@
 
                 </ul>
             </li>
+
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -99,7 +120,7 @@
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left" id="showprogrammes">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -121,7 +142,7 @@
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left" id="showproducers">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -143,7 +164,7 @@
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left" id="showAnnouncers">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -190,11 +211,48 @@
                     }
                 </div>
             </div>
+
+            <div class="row" id="AnnouncerList" style="padding-left:30px">
+                <div class="row" style="background-color:#f0ad4e">
+
+                    <button type="button" id="Announcerbutton" class="btn btn-default" aria-label="Left Align" style="background-color:#f0ad4e;border:none">
+                        <span style="font-size:1.5em" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                    </button>
+                    <label style="color:white">Add New</label>
+                </div>
+                <br />
+                <div class="col-md-11">
+                    @foreach (var item in Model.AnnouncerList)
+                    {
+                        <a href="#" class="btn btn-warning" style="border:none">@item.UserName</a>
+                    }
+                </div>
+            </div>
+            <div class="row" id="ProducersList" style="padding-left:30px">
+                <div class="row" style="background-color:#5cb85c">
+
+                    <button type="button" id="producerbutton" class="btn btn-default" aria-label="Left Align" style="background-color:#5cb85c;border:none">
+                        <span style="font-size:1.5em" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                    </button>
+                    <label style="color:white">Add New</label>
+                </div>
+                <br />
+                <div class="col-md-11">
+                    @foreach (var item in Model.ProducerList)
+                    {
+                        <a href="#" class="btn btn-success" style="padding:5px;padding-right:5px">@item.UserName</a>
+                    }
+                </div>
             </div>
 
-        <div id="createPro" title="Login">
-        </div>
 
+
+
+            </div>
+
+        <div id="createPro" ></div>
+        <div id="createAnnouncer"></div>
+        <div id="createProducer"></div>
         </div><!-- /#page-content-wrapper -->
 
 
@@ -214,31 +272,43 @@
         $("#wrapper").toggleClass("toggled");
     });
 
-    @*var stationid = @Session["StationId"];
-    var ul = document.getElementById("demo");
-    var items = [];
-    $.getJSON("@Url.Action("GetAllProgrammes", "Program", new { StationID = "_tenderId" })".replace("_tenderId", stationid), function (data) {
-        console.log(data);
-        data.forEach(function(entry) {
-
-            items.push(
-                      "<li><a>" + entry + "</a></li>"
-                      );
-
-        //    var li = document.createElement("li");
-        //    li.appendChild(<a>entry</a>);
-        //    console.log(entry);
-        ////    li.setAttribute("id", "element4"); // added line
-        //    ul.appendChild(li);
-        });
-        $("#demo").html(items.join(""));
-    });*@
-       
+  
 
     $(document).ready(function () {
 
-        try {
 
+        $("#ProgramList").hide();
+        $("#AnnouncerList").hide();
+        $("#ProducersList").hide();
+        
+        
+        $("#showproducers").click(function () {
+            $("#Dashboard").hide();
+            $("#ProgramList").hide();
+            $("#AnnouncerList").hide();
+            $("#ProducersList").show(500);
+        });
+        $("#showAnnouncers").click(function () {
+            $("#Dashboard").hide();
+            $("#ProgramList").hide();
+            $("#ProducersList").hide();
+            $("#AnnouncerList").show(500);
+        });
+        $("#showdashboard").click(function () {
+            $("#AnnouncerList").hide();
+            $("#ProgramList").hide();
+            $("#ProducersList").hide();
+            $("#Dashboard").show(1000);
+        });
+
+        $("#showprogrammes").click(function () {
+            $("#Dashboard").hide();
+            $("#AnnouncerList").hide();
+            $("#ProducersList").hide();
+            $("#ProgramList").show(500);
+        });
+        try {
+    //dilaog for creating a program
             var dialog = $("#createPro").dialog({
                 modal: true,
                 autoOpen: false,
@@ -260,6 +330,52 @@
                 minHeight: 'auto'
 
             });
+         
+            //dilaog for creating an producer
+            var dialog1 = $("#createProducer").dialog({
+                modal: true,
+                autoOpen: false,
+                title: "Add Producer",
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                },
+                position: ({
+                    "my": "left top",
+                    "at": "right bottom",
+                    "of": $("#producerbutton")
+                }),
+                width: 230,
+                minHeight: 'auto'
+            });
+
+            //dilaog for creating an announcer
+            var dialog2 = $("#createAnnouncer").dialog({
+                modal: true,
+                autoOpen: false,
+                title: "Add Anouncer",
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                },
+                position: ({
+                    "my": "left top",
+                    "at": "right bottom",
+                    "of": $("#Announcerbutton")
+                }),
+                width: 230,
+                minHeight: 'auto'
+            });
+
+
 
             $("#probutton").click(function () {
                 $.ajax({
@@ -271,6 +387,55 @@
 
                         dialog.html(data);
                         dialog.dialog("open");
+                    },
+                    error: function () {
+                        alert("something seems wrong");
+                    }
+                });
+            });
+
+            $("#Announcerbutton").click(function () {
+
+                $(function () {
+                    $.post('/SetSession/SetVariable',
+                           { key: "isAnnouncer", value: true }, function (data) {
+                            
+                           });
+                });
+
+                   
+                $.ajax({
+                    // Call CreatePartialView action method
+                    url: "/TempUser/newUserForm",
+                    type: 'Get',
+                    context: this,
+                    success: function (data) {
+                        dialog2.html(data);
+                        dialog2.dialog("open");
+                    },
+                    error: function () {
+                        alert("something seems wrong");
+                    }
+                });
+            }); 
+
+            $("#producerbutton").click(function () {
+                   
+                $(function () {
+                    $.post('/SetSession/SetVariable',
+                           { key: "isAnnouncer", value: false }, function (data) {
+
+                           });
+                });
+
+                $.ajax({
+                    // Call CreatePartialView action method
+                    url: "/TempUser/newUserForm",
+                    type: 'Get',
+                    context: this,
+                    success: function (data) {
+                        dialog1.html(data);
+                        dialog1.dialog("open");
                     },
                     error: function () {
                         alert("something seems wrong");

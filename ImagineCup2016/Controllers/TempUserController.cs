@@ -19,13 +19,32 @@ namespace ImagineCup2016.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Models.TempUser temp)
+        public JsonResult Create(Models.TempUser temp)
         {
             int stationid = (int)Session["StationId"];
-            TempUser tempuser = new TempUser { stationID = stationid, name = temp.Name, password = temp.Password, accountCreated = false,role=temp.Role };
-            db.TempUsers.Add(tempuser);
-            db.SaveChanges();
-            return RedirectToAction("Index", "stations");
+            bool tempp = db.UserProfiles.Where(m =>m.UserName.Equals(temp.Name)).Any();
+            if (tempp)
+            {
+                Response.StatusCode = 400;
+                return Json(new { message = "This user already exists" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                WebSecurity.CreateUserAndAccount(temp.Name, temp.Password);
+                if (temp.Role.Equals("Announcer"))
+                {
+                    Roles.AddUserToRole(temp.Name, "Announcer");
+                }
+                else if (temp.Role.Equals("Producer"))
+                {
+
+                    Roles.AddUserToRole(temp.Name, "Producer");
+                }
+                int userId = db.UserProfiles.Where(m => m.UserName.Equals(temp.Name)).First().UserId;
+                db.StationUsers.Add(new StationUser { StationId = stationid, UserId = userId });
+                db.SaveChanges();
+                return Json(new { status = "1", message = "success" }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult Validate(TempUser temp)
@@ -57,5 +76,10 @@ namespace ImagineCup2016.Controllers
                     return View(temp);
                 }
             }
+        public ActionResult newUserForm()
+        {
+            ImagineCup2016.Models.TempUser temp = new ImagineCup2016.Models.TempUser();
+            return PartialView("_PartialCreateUser",temp);
+        }
     }
 }

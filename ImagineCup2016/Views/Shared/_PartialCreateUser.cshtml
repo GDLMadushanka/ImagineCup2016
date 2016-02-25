@@ -1,0 +1,55 @@
+﻿
+@using ImagineCup2016.Models
+@model ImagineCup2016.Models.TempUser
+
+
+
+<div id="result">
+
+    @using (Ajax.BeginForm("Create", "TempUser", (new AjaxOptions { HttpMethod = "Post", OnSuccess = "redirect", OnFailure = "errors" })))
+    {
+        <fieldset>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            <label style="font-size:small">Enter Name </label>
+            @Html.TextBoxFor(x => x.Name, new { htmlAttributes = new { @class = "form-control" } })
+            <label style="font-size:small">Enter Password </label>
+            @Html.PasswordFor(x => x.Password, new { htmlAttributes = new { @class = "form-control" } })
+            @{ if ((bool)Session["isAnnouncer"] == true) {
+                    //Model.Role = "Announcer";
+                    <input type="hidden" value="Announcer" name="Role" id="Roles" />
+                }
+                else
+                {
+                   // Model.Role = "Producer";
+                    <input type="hidden" value="Producer" name="Role" id="Roles" />
+                }
+
+            }
+            <div>
+                <label id="errormsg2" style="font-size:small;color:red"></label>
+            </div>
+        </fieldset>
+        <button id="subbmit" class="btn btn-xs">Add User</button>
+    }
+</div>
+
+
+
+<script type="text/javascript">
+
+
+        var errors = function (data) {
+            $("#errormsg2").html(data.responseJSON.message);
+        };
+
+        function redirect(data)
+        {
+            window.location.reload();
+        }
+
+
+
+</script>
+
+
